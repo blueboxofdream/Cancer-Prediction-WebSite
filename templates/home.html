@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Prediction</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #396886; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background:rgba(255, 255, 255, 0.3) url('homepic copy.jpg') center/cover no-repeat;
+        }
+
+        .login {
+            background-color: #93c7da; /* SkyBlue */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+            width: 900px; /* Adjust the width as needed */
+            max-width: 1000px; /* Set a maximum width */
+            margin-left: 600px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #396886; /* DodgerBlue */
+        }
+
+        form {
+            text-align: left;
+        }
+
+        .mb-3 {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #395886; /* Navy */
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #395886; /* SteelBlue */
+            border-radius: 5px;
+            background-color: #D5DEEF; /* Lavender */
+            color: #395886; /* Navy */
+        }
+
+        .btn-primary {
+            background-color: #22799e; /* RoyalBlue */
+            color: #D5DEEF;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 350px;
+            width: 200px;
+            font-weight: bold;
+        }
+         /* Additional styling for two input boxes in one row */
+        .input-row {
+            display: flex;
+            gap: 10px;
+            width: 95%;
+            margin-left: 30px;
+        }
+
+        .input-row .mb-3 {
+            flex: 1;
+            margin-bottom: 15px;
+        }
+        
+        .popup-container {
+            width: 400px;
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            height: 300px;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+        }
+        .popup-container button {
+            margin-top: 15px;
+            margin-left: 150px;
+        
+        }
+
+        h2 {
+            text-align: center;
+            color: #22799e; /* DodgerBlue */
+            margin-left: 20px;
+            font-size: 30px;
+        }
+        
+    </style>
+    <script>
+        
+        function showPredictionResult() {
+            //var results = {{results}} // Replace with the actual variable holding the results
+            var results = document.getElementById('results').value;
+            
+            // Show the overlay and popup container
+            document.querySelector('.overlay').style.display = 'block';
+            document.querySelector('.popup-container').style.display = 'block';
+
+            // Display the result inside the popup
+            document.getElementById('popupResult').innerText = "The prediction is " + results;
+        }
+
+        function closePopup() {
+            // Hide the overlay and popup container
+            document.querySelector('.overlay').style.display = 'none';
+            document.querySelector('.popup-container').style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <div class="login">
+        <h1>ENTER THE SYMPTOPS FOR PREDICTION</h1>
+
+        <form action="http://127.0.0.1:8000/predict" method="post" name="predictionForm" onsubmit="showPredictionResult(); return false;">
+
+          <div class="input-row">
+            <div class="mb-3">
+                <label class="form-label">Enter your Age</label>
+                <input class="form-control" type="number" name="AGE" placeholder="Enter your Age" min="0" max="100" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Do you smoke often?</label>
+                <select class="form-control" name="SMOKING" placeholder="Enter you ethnicity" required>
+                    <option class="placeholder" selected disabled value="">Select Smoke</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+          </div> 
+        
+          <div class="input-row">
+            <div class="mb-3">
+                <label class="form-label">Are your fingers turning yellow?</label>
+                <select class="form-control" name="YELLOW_FINGERS"
+                    placeholder="Enter you Parent Education" required>
+                    <option class="placeholder" selected disabled value="">Select yellow finger</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label">Do you often suffer from anxiety?</label>
+                <select class="form-control" name="ANXIETY"
+                    placeholder="Enter you Parent Education" required>
+                    <option class="placeholder" selected disabled value="">Select anxiety</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+          </div>
+            <div class="input-row">
+            <div class="mb-3">
+                <label class="form-label">Do you often suffer from peer pressure?</label>
+                <select class="form-control" name="PEER_PRESSURE" placeholder="Enter you Course"
+                    required>
+                    <option class="placeholder" selected disabled value="">Select peer pressure</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Do you often suffer from chronic diseases?</label>
+                <select class="form-control" name="CHRONIC_DISEASE" placeholder="Enter you Course"
+                    required>
+                    <option class="placeholder" selected disabled value="">Select chronic diseases</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+            </div>
+
+            <div class="input-row">
+            <div class="mb-3">
+                <label class="form-label">Are you suffering from wheezing recently?</label>
+                <select class="form-control" name="WHEEZING" placeholder="Enter you Course"
+                    required>
+                    <option class="placeholder" selected disabled value="">Select wheezing</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label">Do you often consume alcohol?</label>
+                <select class="form-control" name="ALCOHOL_CONSUMING" placeholder="Enter you Course"
+                    required>
+                    <option class="placeholder" selected disabled value="">Select alcohol</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+            </div>
+
+            <div class="input-row">
+            <div class="mb-3">
+                <label class="form-label">Are you experiencing coughing recently?</label>
+                <select class="form-control" name="COUGHING" placeholder="Enter you Course"
+                    required>
+                    <option class="placeholder" selected disabled value="">Select coughing</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label">Are you experiencing shortness of breath recently?</label>
+                <select class="form-control" name="SHORTNESS_OF_BREATH" placeholder="Enter you Course"
+                    required>
+                    <option class="placeholder" selected disabled value="">Select shortness of breath</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+            </div>
+
+            <div class="input-row">
+            <div class="mb-3">
+                <label class="form-label">Are you suffering from any swallowing problem?</label>
+                <select class="form-control" name="SWALLOWING_DIFFICULTY" placeholder="Enter you Course"
+                    required>
+                    <option class="placeholder" selected disabled value="">Select swallowing</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label">Are you suffering from chest pain recently ?</label>
+                <select class="form-control" name="CHEST_PAIN" placeholder="Enter you Course"
+                    required>
+                    <option class="placeholder" selected disabled value="">Select chest pain</option>
+                    <option value="2">
+                        Yes
+                    </option>
+                    <option value="1">
+                        No
+                    </option>
+                </select>
+            </div>
+            </div>
+
+            <div class="input-row">
+            <div class="mb-3">
+                <label class="form-label">State your Gender</label>
+                <select class="form-control" name="GENDER_NEW" placeholder="Select your Gender" required>
+                    <option class="placeholder" selected disabled value="">Select your Gender</option>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+            </div>
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Prediction" required />
+            </div>
+        </form>
+
+        <h2>
+            {{results}}
+        </h2>
+        <!-- <img src="data:image/png;base64,{{ plot }}" alt="Models vs Scores" /> -->
+    </div>
+    <!-- <div class="overlay" onclick="closePopup()"></div>
+    <div class="popup-container">
+        <span id="popupResult"></span>
+        <input type="hidden" id="results" name="results" value="{{ results }}" />
+
+        <div>
+        <button onclick="closePopup()">Close</button>
+        </div>
+    </div> -->
+</body>
+</html>

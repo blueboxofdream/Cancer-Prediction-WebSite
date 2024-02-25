@@ -1,0 +1,5 @@
+DRIVER = 'ODBC Driver 18 for SQL Server'
+SERVER = 'DESKTOP-2P91G2A'
+DATABASE = 'userinfo'
+UID = 'DESKTOP-2P91G2A\User'
+TRUST = 'yes'

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>login</title>
+</head>
+<body>
+    <div class="header">
+        <h1 class="hcontent">Cancer Predictor</h1>
+        <div class="nav-links">
+            <a class="hcontent anchor" href = "index.html">Home</a>
+            <a class="hcontent anchor" href = "about.html">About</a>
+            <a class="hcontent" href = "/login.html">Log In</a>  
+            <a class="hcontent" href = "/signup.html">Sign Up</a> 
+        </div> 
+    </div>
+    <div  class="login_div">
+        <form class="form_div" action = '/post' onsubmit="return validateSignUp()">
+            <label class="fitems" for="username">Username</label>
+            <input id = "username" class="fitems" type="text" placeholder="Enter username" name="username">
+            <label class="fitems" for="email">Email</label>
+            <input id = "email" class="fitems" type="email" placeholder="Enter email" name="email">
+            <label class="fitems" for="password">Passsword</label>
+            <input  id= "password" class="fitems" type="password" placeholder="Enter password" name="password">
+            <span> Already have an account ? </span> <a href="login.html" class="text-dec-none"> Login</a>
+            <button class="fitems" type="submit">Sign Up</button>
+        </form>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
